@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:personal_expenses/transaction.dart';
+import 'package:personal_expenses/ui/personal_single_item.dart';
 
 class PersonalItems extends StatelessWidget {
   PersonalItems(this._transactions, this.deleteTx);
@@ -11,63 +11,47 @@ class PersonalItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
-      child: _transactions.isEmpty ? Column(children: <Widget>[
-        SizedBox(
-          height: 20,
-        ),
-        Center(
-          child: Text(
-            'No transactions yet!',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          height: 200,
-          child: Image.asset('assets/images/waiting.png',
-          fit: BoxFit.cover,),
-        ),
-      ],) : ListView.builder(
-          itemCount: _transactions.length,
-          itemBuilder: (_, int index) {
-            return Card(
-              elevation: 5,
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 30,
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: FittedBox(
-                      child: Text(
-                        _transactions[index].amount.toStringAsFixed(2),
+      height: MediaQuery.of(context).size.height * 0.6,
+      child: _transactions.isEmpty
+          ? LayoutBuilder(
+              builder: (_, constraints) {
+                return Column(
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: const Text(
+                        'No transactions yet!',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                title: Text(
-                  _transactions[index].title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                subtitle: Text(
-                  DateFormat.yMMMd().format(_transactions[index].dateTime),
-                ),
-                trailing: IconButton(
-                  icon: Icon(Icons.delete),
-                  color: Theme.of(context).errorColor,
-                  onPressed: () => deleteTx(_transactions[index].id),
-                ),
-              ),
-            );
-          }),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      height: constraints.maxHeight * 0.6,
+                      child: Image.asset(
+                        'assets/images/waiting.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            )
+          : ListView(
+              children: _transactions
+                  .map((tx) => PersonalSingleItem(
+                        key: ValueKey(tx.id),
+                        transaction: tx,
+                        deleteTx: deleteTx,
+                      ))
+                  .toList(),
+            ),
     );
   }
 }
