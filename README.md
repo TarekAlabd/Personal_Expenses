@@ -1,16 +1,15 @@
 # personal_expenses
 
-A new Flutter application.
+It's a simple app that enables you to track your expenses weekly. It has a good and simple UI that permits you do everything you want.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+You can calculate your personal expenses weekly using an interactive, responsive and adaptive app using Dart & Flutter.
 
-A few resources to get you started if this is your first Flutter project:
+![Portrait mode 1](1.png) 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![Portrait mode 2](2.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Landscape mode 1](3.png) 
+
+![Landscape mode 2](4.png)
